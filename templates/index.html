@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coulomb's Canvas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Plotly.js CDN -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Coulomb's Canvas</h1>
+        <p>Visualize Electric Fields from Static Charge Distributions</p>
+    </header>
+
+    <main>
+        <section id="config-section">
+            <div class="config-column">
+                <h3>1. Define Charge Distributions</h3>
+                <p>Enter distributions as a JSON list below.</p>
+                <textarea id="distributionsInput" rows="15" cols="60">[
+  {"type": "point_charge", "charge_q": 1e-9, "position": [0,0,0]},
+  {"type": "finite_line_charge", "total_charge_q": 2e-9, "start_point": [-1,0,0], "end_point": [1,0,0]}
+]
+</textarea>
+<p style="font-size:0.9em; color:#6c757d;">
+    Available types: <code>point_charge</code>, <code>infinite_plane_charge</code>, <code>charged_sphere_shell</code>, <code>finite_line_charge</code>. <br>
+    Refer to examples for parameter names and format:
+</p>
+<pre><code>
+Point Charge:
+{
+  "type": "point_charge",
+  "charge_q": 1e-9,       /* Charge in Coulombs */
+  "position": [x,y,z]     /* meters */
+}
+
+Finite Line Charge (Bar):
+{
+  "type": "finite_line_charge",
+  "total_charge_q": 1e-9, /* Total charge in Coulombs */
+  "start_point": [x1,y1,z1], /* meters */
+  "end_point": [x2,y2,z2]   /* meters */
+}
+
+Infinite Plane:
+{
+  "type": "infinite_plane_charge",
+  "sigma": -0.5e-9,      /* Surface charge density C/m^2 */
+  "normal_vector": [nx,ny,nz], /* Normal vector (e.g., [0,0,1] for XY plane) */
+  "point_on_plane": [x0,y0,z0] /* Any point on the plane */
+}
+
+Sphere Shell:
+{
+  "type": "charged_sphere_shell",
+  "total_charge_q": 2e-9, /* Total charge in Coulombs */
+  "radius": 0.5,         /* meters */
+  "center": [cx,cy,cz]   /* meters */
+}
+</code></pre>
+            </div>
+
+            <div class="config-column">
+                <h3>2. Choose Calculation & Visualization</h3>
+
+                <h4>Field at a Single Point</h4>
+                <p>Specify the (x, y, z) coordinates:</p>
+                <div class="input-group">
+                    <label for="pointX">X:</label> <input type="number" id="pointX" value="1" step="0.1">
+                    <label for="pointY">Y:</label> <input type="number" id="pointY" value="1" step="0.1">
+                    <label for="pointZ">Z:</label> <input type="number" id="pointZ" value="1" step="0.1">
+                </div>
+                <button id="calculatePointBtn">Calculate Field at Point</button>
+                <div id="pointResult"></div>
+
+                <h4>Field on a 2D Slice</h4>
+                <p>Visualize E-field vectors on a 2D plane.</p>
+                <label for="sliceAxis">Slice Axis:</label>
+                <select id="sliceAxis">
+                    <option value="z" selected>Z (Plot XY plane)</option>
+                    <option value="y">Y (Plot XZ plane)</option>
+                    <option value="x">X (Plot YZ plane)</option>
+                </select>
+                <label for="sliceValue">Slice Value (at selected axis):</label> <input type="number" id="sliceValue" value="0" step="0.1">
+
+                <div class="input-group">
+                    <label for="sliceDim1Range">Range 1 (e.g., X for Z-slice):</label> <input type="text" id="sliceDim1Range" value="-2, 2" placeholder="-max, max">
+                </div>
+                <div class="input-group">
+                    <label for="sliceDim2Range">Range 2 (e.g., Y for Z-slice):</label> <input type="text" id="sliceDim2Range" value="-2, 2" placeholder="-max, max">
+                </div>
+                <label for="sliceResolution">Resolution (grid points per dimension):</label> <input type="number" id="sliceResolution" value="15" min="2">
+                <button id="calculateSliceBtn">Visualize 2D Slice</button>
+
+                <h4>Field in a 3D Volume</h4>
+                 <p>Visualize E-field vectors in a 3D region.</p>
+                <div class="input-group">
+                    <label for="volumeXRange">X Range:</label> <input type="text" id="volumeXRange" value="-2, 2" placeholder="-max, max">
+                </div>
+                <div class="input-group">
+                    <label for="volumeYRange">Y Range:</label> <input type="text" id="volumeYRange" value="-2, 2" placeholder="-max, max">
+                </div>
+                 <div class="input-group">
+                    <label for="volumeZRange">Z Range:</label> <input type="text" id="volumeZRange" value="-2, 2" placeholder="-max, max">
+                </div>
+                <label for="volumeResolution">Resolution (grid points per axis):</label> <input type="number" id="volumeResolution" value="7" min="2">
+                <button id="calculateVolumeBtn">Visualize 3D Volume</button>
+            </div>
+        </section>
+
+        <section id="visualization-section">
+            <h2>Visualization Output</h2>
+            <div id="statusMessage">Awaiting calculation...</div>
+            <div id="plotDiv2D" style="width:90%; max-width:700px; height:500px; display:none;"></div>
+            <div id="plotDiv3D" style="width:90%; max-width:900px; height:700px; display:none;"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Coulomb's Canvas</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

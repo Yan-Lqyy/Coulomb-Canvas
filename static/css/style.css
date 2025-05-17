@@ -1,0 +1,172 @@
+/* static/css/style.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Lighter background */
+    color: #343a40; /* Darker text for contrast */
+}
+
+header {
+    background: #007bff; /* Bootstrap primary blue */
+    color: #ffffff;
+    padding: 1.5rem 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+header p {
+    font-size: 1.1em;
+    margin-top: 0.5em;
+}
+
+main {
+    padding: 20px;
+    max-width: 1400px; /* Wider for more content */
+    margin: 20px auto;
+}
+
+section {
+    background: #fff;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+h2, h3, h4 {
+    color: #0056b3; /* Darker blue for headings */
+    margin-top: 0;
+}
+h2 { font-size: 1.8em; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px;}
+h3 { font-size: 1.5em; margin-bottom: 15px;}
+h4 { font-size: 1.2em; margin-bottom: 10px;}
+
+
+#config-section {
+    display: grid; /* Using grid for better layout */
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Responsive columns */
+    gap: 30px;
+}
+
+.config-column {
+    background-color: #fdfdfd;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+}
+
+textarea#distributionsInput {
+    width: 98%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+    min-height: 150px; /* Taller */
+    resize: vertical;
+    box-sizing: border-box; /* Include padding in width */
+}
+
+label {
+    display: block; /* Block for better alignment */
+    margin-top: 12px;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #495057;
+}
+
+input[type="text"], input[type="number"], select {
+    width: calc(100% - 22px); /* Full width minus padding/border */
+    padding: 10px;
+    margin-bottom: 10px; /* Spacing below inputs */
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+/* Specific widths for smaller inputs */
+.input-group input[type="number"], .input-group input[type="text"] {
+    width: auto; /* Allow them to shrink */
+    flex-grow: 1;
+    margin-right: 10px;
+}
+.input-group label { margin-right: 5px; margin-bottom: 0;}
+.input-group { display: flex; align-items: center; margin-bottom: 10px; flex-wrap: wrap;}
+.input-group input { margin-bottom: 5px;} /* Adjust margin when wrapped */
+
+
+button {
+    background: #28a745; /* Bootstrap success green */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1em;
+    transition: background-color 0.2s ease-in-out;
+    margin-top: 15px;
+}
+
+button:hover {
+    background: #218838; /* Darker green */
+}
+
+#pointResult {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e9f7ef; /* Light green background */
+    border: 1px solid #c3e6cb; /* Green border */
+    border-radius: 4px;
+    color: #155724; /* Dark green text */
+}
+#pointResult h5 { margin-top: 0; color: #004085; }
+#pointResult ul { list-style: none; padding-left: 0; margin-bottom: 0;}
+#pointResult li { padding: 3px 0; word-break: break-all; } /* Prevent long numbers from overflowing */
+
+
+#visualization-section {
+    text-align: center;
+}
+
+#plotDiv2D, #plotDiv3D {
+    margin: 20px auto;
+    border: 1px solid #dee2e6; /* Lighter border */
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background-color: #fff; /* Ensure plot areas have white background */
+}
+
+#statusMessage {
+    margin-top: 15px;
+    font-style: italic;
+    color: #6c757d; /* Bootstrap secondary text color */
+    min-height: 1.2em; /* Reserve space to prevent layout shift */
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background: #343a40; /* Dark gray */
+    color: #f8f9fa; /* Light text */
+    margin-top: 30px;
+}
+
+pre {
+    background-color: #e9ecef; /* Lighter pre background */
+    border: 1px solid #ced4da;
+    padding: 15px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 0.85em;
+    line-height: 1.4;
+    white-space: pre-wrap; /* Wrap long lines in pre */
+    word-wrap: break-word; /* Break words if necessary */
+}
+code {
+    font-family: 'Courier New', Courier, monospace;
+}
